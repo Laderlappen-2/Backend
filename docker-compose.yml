@@ -1,11 +1,21 @@
-version: "3"
-services:
+version: "3.7"
 
+services:
     # Note.js application
     api:
-        build: "api"
+        build: 
+            context: "api"
+            dockerfile: Dockerfile.dev
+
+        volumes: 
+            - ./api/src/:/usr/src/api/src/
+            - ./api/nodemon.json:/usr/src/api/nodemon.json
+
+        expose:
+            - "8080"
+
         ports:
             - "8080:8080"
-        volumes: 
-            - "./api/src:/usr/src/api"
-            - "/usr/src/api/node_modules/"
+            - "9229:9229"
+
+        command: "npm run start"

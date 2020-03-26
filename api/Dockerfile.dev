@@ -1,0 +1,9 @@
+FROM node:current
+
+WORKDIR /usr/src/api
+
+# Add our package file
+ADD package*.json ./
+
+ENV NODE_ENV=development
+RUN npm install
