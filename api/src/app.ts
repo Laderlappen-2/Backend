@@ -4,7 +4,7 @@ import { loadControllers, scopePerRequest } from 'awilix-express'
 import * as managers from "./business-logic-layer"
 import { sequelize } from "./data-layer/database"
 const { asClass, asValue, createContainer} = require('awilix')
-const app = express()
+export const app = express()
 
 // Setup dotenv
 dotenv.config()
@@ -40,4 +40,3 @@ function startServer(port: any) {
         console.log("REST API up and running on port " + port)
     })
 }
-
