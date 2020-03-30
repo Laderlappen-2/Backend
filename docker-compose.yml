@@ -12,6 +12,7 @@ services:
             - ./api/dist/:/usr/src/api/dist/
             - ./api/nodemon.json:/usr/src/api/nodemon.json
             - ./api/tsconfig.json:/usr/src/api/tsconfig.json
+            - ./api/backend-db.sqlite:/usr/src/api/backend-db.sqlite
 
         expose:
             - "8080"
