@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv"
 import express = require("express")
 import { loadControllers, scopePerRequest } from 'awilix-express'
-//import * as managers from "./business-logic-layer"
+import * as managers from "./business-logic-layer"
 import { sequelize } from "./data-layer/database"
 const { asClass, asValue, createContainer} = require('awilix')
 const app = express()
@@ -18,6 +18,7 @@ container.register({
     // Imagine the TodosService needs a `user`.
     // class TodosService { constructor({ user }) { } }
     //userManager: asClass(managers.UserManager)
+    helloWorldManager: asClass(managers.HelloWorldManager)
 })
 
 // Sync database
@@ -32,7 +33,7 @@ sequelize.sync()
 
 // Setup awilix express
 app.use(scopePerRequest(container))
-app.use("/v1", loadControllers("presentation-layer/v1/*.js", { cwd: __dirname } ))
+app.use(loadControllers("presentation-layer/v1/*.route.js", { cwd: __dirname }))
 
 function startServer(port: any) {
     app.listen(port, () => {

@@ -9,7 +9,9 @@ services:
 
         volumes: 
             - ./api/src/:/usr/src/api/src/
+            - ./api/dist/:/usr/src/api/dist/
             - ./api/nodemon.json:/usr/src/api/nodemon.json
+            - ./api/tsconfig.json:/usr/src/api/tsconfig.json
 
         expose:
             - "8080"
@@ -18,4 +20,4 @@ services:
             - "8080:8080"
             - "9229:9229"
 
-        command: "npm run start"
+        command: "npm run start-tsc"
