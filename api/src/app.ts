@@ -9,8 +9,6 @@ export const app = express()
 // Setup dotenv
 dotenv.config()
 
-const PORT = process.env.PORT || 8080
-
 // Setup awilix container
 const container = createContainer()
 container.register({
@@ -21,22 +19,6 @@ container.register({
     helloWorldManager: asClass(managers.HelloWorldManager)
 })
 
-// Sync database
-sequelize.sync()
-    .then(() => {
-        console.log("Database synchronized, starting server..")
-        startServer(PORT)
-    })
-    .catch(err => {
-        console.log(err, "Error synchronizing database")
-    })
-
 // Setup awilix express
 app.use(scopePerRequest(container))
-app.use(loadControllers("presentation-layer/v1/*.route.js", { cwd: __dirname }))
-
-function startServer(port: any) {
-    app.listen(port, () => {
-        console.log("REST API up and running on port " + port)
-    })
-}
+app.use(loadControllers("presentation-layer/v1/*.route.*s", { cwd: __dirname }))

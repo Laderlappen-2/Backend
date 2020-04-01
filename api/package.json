@@ -5,8 +5,8 @@
     "main": "dist/app.js",
     "scripts": {
         "build": "tsc",
-        "start": "nodemon -L src/app.ts",
-        "start-tsc": "tsc-watch --project tsconfig.json --onSuccess \"node dist/app.js\"",
+        "start": "nodemon -L src/index.ts",
+        "start-tsc": "tsc-watch --project tsconfig.json --onSuccess \"node dist/index.js\"",
         "test": "mocha -r ts-node/register tests/**/*.test.ts"
     },
     "keywords": [],
