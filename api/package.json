@@ -7,7 +7,7 @@
         "build": "tsc",
         "start": "nodemon -L src/app.ts",
         "start-tsc": "tsc-watch --project tsconfig.json --onSuccess \"node dist/app.js\"",
-        "test": "tsc -p tsconfig.json && mocha dist/tests/**/*.js"
+        "test": "mocha -r ts-node/register tests/**/*.test.ts"
     },
     "keywords": [],
     "author": "Läderlappen 2",
