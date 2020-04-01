@@ -1,3 +1,5 @@
 build:
   docker:
     web: api/Dockerfile.dev
+run:
+  web: npm run start-tsc
