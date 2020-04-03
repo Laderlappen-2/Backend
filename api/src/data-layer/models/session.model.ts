@@ -1,9 +1,8 @@
 import { Table, Column, Model, AutoIncrement, PrimaryKey, HasMany } from "sequelize-typescript"
-import Event from "./event.model"
-
+import { Event } from "./"
 
 @Table({ tableName: "sessions", timestamps: false })
-export default class Session extends Model<Session> {
+export class Session extends Model<Session> {
 
     @PrimaryKey
     @AutoIncrement

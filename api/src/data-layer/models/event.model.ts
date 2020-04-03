@@ -1,9 +1,8 @@
-import { Table, Column, Model, AutoIncrement, PrimaryKey, ForeignKey, BelongsTo } from "sequelize-typescript"
-import EventType from "./eventType.model"
-import Session from "./session.model"
+import { Table, Column, Model, AutoIncrement, PrimaryKey, ForeignKey, BelongsTo, DataType } from "sequelize-typescript"
+import { EventType, Session } from "./"
 
 @Table({ tableName: "events", timestamps: false })
-export default class Event extends Model<Event> {
+export class Event extends Model<Event> {
 
     @AutoIncrement
     @PrimaryKey
@@ -18,6 +17,8 @@ export default class Event extends Model<Event> {
     @Column({ allowNull: false })
     sessionId: number
     
+    @Column({ allowNull: false, defaultValue: new Date(), type: DataType.DATE })
+    dateCreated: Date
 
     @BelongsTo(() => EventType)
     eventType: EventType
