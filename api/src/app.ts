@@ -21,4 +21,4 @@ container.register({
 
 // Setup awilix express
 app.use(scopePerRequest(container))
-app.use(loadControllers("presentation-layer/v1/*.route.*s", { cwd: __dirname }))
+app.use(loadControllers("presentation-layer/v1/*.route.ts", { cwd: __dirname }))
