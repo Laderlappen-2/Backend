@@ -5,7 +5,7 @@ services:
     api:
         build: 
             context: "api"
-            dockerfile: Dockerfile.dev
+            dockerfile: Dockerfile
 
         volumes: 
             - ./api/src/:/usr/src/api/src/
