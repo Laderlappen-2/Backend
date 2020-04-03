@@ -1,5 +1,6 @@
 import * as dotenv from "dotenv"
 import express = require("express")
+import fs = require("fs")
 import { loadControllers, scopePerRequest } from 'awilix-express'
 import * as managers from "./business-logic-layer"
 import { sequelize } from "./data-layer/database"
@@ -21,4 +22,7 @@ container.register({
 
 // Setup awilix express
 app.use(scopePerRequest(container))
-app.use(loadControllers("presentation-layer/v1/*.route.ts", { cwd: __dirname }))
+for(let folderName of fs.readdirSync(__dirname + "/presentation-layer")) {
+    app.use(`/${folderName}`, loadControllers(`presentation-layer/${folderName}/*.route.ts`, { cwd: __dirname }))
+}
+app.use(loadControllers(`presentation-layer/*.route.ts`, { cwd: __dirname }))
