@@ -1,5 +1,5 @@
 import { Table, Column, Model, AutoIncrement, PrimaryKey, HasMany } from "sequelize-typescript"
-import { Event } from "./"
+import { Event } from "./event.model"
 
 @Table({ tableName: "eventTypes", timestamps: false })
 export class EventType extends Model<EventType> {

@@ -17,7 +17,7 @@ export default class DrivingSessionsRoute {
         try {
             const drivingSession = await this.drivingSessionManager.createDrivingSession()
             res.status(201)
-                .header("Location", `${req.path}/${drivingSession.id}`)
+                .header("Location", `${req.originalUrl}/${drivingSession.id}`)
                 .json(drivingSession)
         } catch(err) {
             next(err)

@@ -1,11 +1,22 @@
 import * as dotenv from "dotenv"
 import express = require("express")
+import bodyParser = require("body-parser")
 import fs = require("fs")
 import { loadControllers, scopePerRequest } from 'awilix-express'
 import * as managers from "./business-logic-layer"
-import { sequelize } from "./data-layer/database"
 const { asClass, asValue, createContainer} = require('awilix')
+import { sequelize } from "./data-layer/database"
 export const app = express()
+
+// Sync database
+sequelize.sync()
+    .then(() => {
+        console.log("Database synchronized..")
+        app.emit("database_ready")
+    })
+    .catch(err => {
+        console.log(err, "Error synchronizing database")
+    })
 
 // Setup dotenv
 dotenv.config()
@@ -20,6 +31,8 @@ container.register({
     helloWorldManager: asClass(managers.HelloWorldManager),
     drivingSessionManager: asClass(managers.DrivingSessionsManager)
 })
+
+app.use(bodyParser.json())
 
 // Setup awilix express
 app.use(scopePerRequest(container))

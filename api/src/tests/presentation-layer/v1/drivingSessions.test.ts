@@ -1,10 +1,14 @@
 import * as supertest from "supertest"
 import { describe, it } from "mocha"
-import { should, assert, expect } from "chai"
+import { expect, should } from "chai"
 import { app } from "../../../app"
 import { Response } from "express"
 
-describe("/drivingsessions", () => {
+before((done) => {
+    app.on("database_ready", done)
+})
+
+describe("/v1/drivingsessions", () => {
 
     it("POST should give status 201 and Location header /v1/drivingsessions/:id", (done) => {
         
@@ -12,17 +16,16 @@ describe("/drivingsessions", () => {
             .post('/v1/drivingsessions')
             .expect(201)
             .expect("Location", /\/v1\/drivingsessions\/[0-9]+/)
-            .expect(201, (res: Response) => {
-                expect(res).to.have
-                    .property("id")
-                        .to.be.a("number")
-                    .property("collisions")
-                    .property("paths")
-            })
-            .end((error: Error, res: Response) => {
-                assert(!error, error.toString())
+            .end((err: any, res: supertest.Response) => {
+                if(err) return done(err)
+                
+                expect(res.body).to.have.property("id")
+                                        .to.be.a("number")
+                
+                expect(res.body).to.have.property("collisions")
+                expect(res.body).to.have.property("paths")
+                
                 done()
             })
-
     })
 })
