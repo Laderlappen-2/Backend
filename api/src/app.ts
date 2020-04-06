@@ -17,7 +17,8 @@ container.register({
     // Imagine the TodosService needs a `user`.
     // class TodosService { constructor({ user }) { } }
     //userManager: asClass(managers.UserManager)
-    helloWorldManager: asClass(managers.HelloWorldManager)
+    helloWorldManager: asClass(managers.HelloWorldManager),
+    drivingSessionManager: asClass(managers.DrivingSessionsManager)
 })
 
 // Setup awilix express
