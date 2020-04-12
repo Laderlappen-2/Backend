@@ -1,6 +1,6 @@
 # Backend
 
-Trying out smart commit message to integrate Github with Jira.
+Trying out smart commit message to integrate Github with Jira. Again
 # Project setup
 ## Based on
 - [TS with docker 1](https://www.hebergb.com/docker-node-typescript)
