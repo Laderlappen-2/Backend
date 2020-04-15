@@ -1,6 +1,7 @@
 import { route, GET, POST, before } from 'awilix-express'
 import { Request, Response, NextFunction } from "express"
-import { DrivingSessionsManager } from '../../business-logic-layer'
+import { DrivingSessionsManager, PaginationQuery } from '../../business-logic-layer'
+import url = require("url")
 
 @route('/drivingsessions')
 export default class DrivingSessionsRoute {
@@ -11,7 +12,22 @@ export default class DrivingSessionsRoute {
         this.drivingSessionManager = drivingSessionManager
     }
 
-    @route('')
+    @GET()
+    async getAllDrivingSessions(req: Request, res: Response, next: NextFunction) {
+        try {
+            const pagination: PaginationQuery = {}
+            
+            if(req.query.from)
+                pagination.from = parseInt(req.query.from)
+            if(req.query.limit)
+                pagination.limit = parseInt(req.query.limit)
+
+            res.json(await this.drivingSessionManager.getDrivingSessions(pagination))
+        }catch(err) {
+            next(err)
+        }
+    }
+
     @POST()
     async createDrivingSession(req: Request, res: Response, next: NextFunction) {
         try {
