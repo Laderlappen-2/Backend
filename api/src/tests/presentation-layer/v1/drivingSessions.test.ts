@@ -28,20 +28,4 @@ describe("/v1/drivingsessions", () => {
                 done()
             })
     })
-
-    it("GET should give status 200, pagination as response", (done) => {
-        supertest(app)
-            .get("/v1/drivingsessions")
-            .expect(200)
-            .end((err: any, res: supertest.Response) => {
-                if(err) return done(err)
-                
-                expect(res.body).to.be.an("object")
-
-                expect(res.body.limit).to.equal(0)
-                expect(res.body.results).to.be.an("array")
-
-                done()
-            })
-    })
 })
