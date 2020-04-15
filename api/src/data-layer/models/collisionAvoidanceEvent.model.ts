@@ -2,7 +2,7 @@ import { Table, Column, Model, AutoIncrement, PrimaryKey, ForeignKey, BelongsTo,
 import { Event } from "./event.model"
 import { EventTypeEnum } from "./eventType.model"
 
-@Table({ tableName: "collision_avoidance_events", timestamps: false })
+@Table({ tableName: "collisionAvoidanceEvents", timestamps: false })
 export class CollisionAvoidanceEvent extends Model<CollisionAvoidanceEvent> {
 
     @ForeignKey(() => Event)
