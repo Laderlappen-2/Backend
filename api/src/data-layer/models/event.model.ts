@@ -2,6 +2,7 @@ import { Table, Column, Model, AutoIncrement, PrimaryKey, ForeignKey, BelongsTo,
 import { EventType } from "./eventType.model"
 import { DrivingSession } from "./drivingSession.model"
 import { CollisionAvoidanceEvent } from "./collisionAvoidanceEvent.model"
+import { PositionEvent } from "./positionEvent.model"
 
 @Table({ tableName: "events", timestamps: false })
 export class Event extends Model<Event> {
@@ -30,4 +31,7 @@ export class Event extends Model<Event> {
 
     @HasOne(() => CollisionAvoidanceEvent)
     collisionAvoidanceEvent: CollisionAvoidanceEvent
+
+    @HasOne(() => PositionEvent)
+    PositionEvent: PositionEvent
 }

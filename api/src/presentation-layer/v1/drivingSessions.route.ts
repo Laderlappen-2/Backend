@@ -22,8 +22,18 @@ export default class DrivingSessionsRoute {
             if(req.query.limit)
                 pagination.limit = parseInt(req.query.limit)
 
-            res.json(await this.drivingSessionManager.getDrivingSessions(pagination))
+            res.json(await this.drivingSessionManager.getWithPagination(pagination))
         }catch(err) {
+            next(err)
+        }
+    }
+
+    @route("/:id")
+    @GET()
+    async getDrivingSessionById(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.json(await this.drivingSessionManager.getById(parseInt(req.params.id)))
+        } catch(err) {
             next(err)
         }
     }
@@ -31,7 +41,7 @@ export default class DrivingSessionsRoute {
     @POST()
     async createDrivingSession(req: Request, res: Response, next: NextFunction) {
         try {
-            const drivingSession = await this.drivingSessionManager.createDrivingSession()
+            const drivingSession = await this.drivingSessionManager.create()
             res.status(201)
                 .header("Location", `${req.originalUrl}/${drivingSession.id}`)
                 .json(drivingSession)

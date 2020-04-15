@@ -1,9 +1,9 @@
-import { EventType, CollisionAvoidanceEvent, Event, DrivingSession } from "../data-layer/models" 
+import { CollisionAvoidanceEvent, DrivingSession, PositionEvent, Event } from "../data-layer/models" 
 import { FindOptions, Op } from "sequelize"
 
 export class DrivingSessionsManager {
 
-    async getDrivingSessions(pagination?: PaginationQuery): Promise<PaginationResult<DrivingSession>> {
+    async getWithPagination(pagination?: PaginationQuery): Promise<PaginationResult<DrivingSession>> {
         let options: FindOptions = {}
 
         if(pagination) {
@@ -42,8 +42,31 @@ export class DrivingSessionsManager {
         }
     }
 
-    async createDrivingSession() : Promise<DrivingSession> {
+    async create() : Promise<DrivingSession> {
         return await new DrivingSession().save()
+    }
+
+    async getById(drivingSessionId: number): Promise<DrivingSession> {
+        const drivingSession = await DrivingSession.findOne({
+            where: {
+                id: drivingSessionId
+            }
+        })
+        // Populate collisions with collision events
+        drivingSession.collisions = await Event.findAll({
+            where: {
+                drivingSessionId: drivingSessionId
+            },
+            include: [CollisionAvoidanceEvent]
+        })
+        // Populate paths with position events
+        drivingSession.paths = await Event.findAll({
+            where: {
+                drivingSessionId: drivingSessionId
+            },
+            include: [PositionEvent]
+        })
+        return drivingSession
     }
 
 }
@@ -58,11 +81,4 @@ export type PaginationResult<T> = {
     next: any
     limit: number
     results: T[]
-}
-
-export type PaginationLinks = {
-    base: string
-    previous?: string
-    next?: string
-    self: string
 }

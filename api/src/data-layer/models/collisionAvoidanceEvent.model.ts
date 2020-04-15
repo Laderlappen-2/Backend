@@ -5,7 +5,6 @@ import { EventTypeEnum } from "./eventType.model"
 @Table({ tableName: "collision_avoidance_events", timestamps: false })
 export class CollisionAvoidanceEvent extends Model<CollisionAvoidanceEvent> {
 
-    // Only events with the id of COLLISSION_AVOIDANCE events are allowed in this table
     @ForeignKey(() => Event)
     @Column({ allowNull: false, onDelete: "CASCADE" })
     eventId: number
