@@ -44,4 +44,24 @@ describe("/v1/drivingsessions", () => {
                 done()
             })
     })
+
+    it("GET should give status 200 and a driving session object", (done) => {        
+        supertest(app)
+            .get("/v1/drivingsessions/1")
+            .expect(200)
+            .end((err: any, res: supertest.Response) => {
+                if(err) return done(err)
+
+                expect(res.body).to.have.property("id")
+                                        .to.be.a("number")
+                
+                expect(res.body).to.have.property("collisions")
+                                        .to.be.an("array")
+
+                expect(res.body).to.have.property("paths")
+                                        .to.be.an("array")
+
+                done()
+            })
+    })
 })
