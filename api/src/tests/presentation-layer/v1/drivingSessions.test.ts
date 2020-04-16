@@ -64,4 +64,17 @@ describe("/v1/drivingsessions", () => {
                 done()
             })
     })
+
+    it("DELETE should give status 204 and an empty body", (done) => {
+        supertest(app)
+            .delete("/v1/drivingsessions/52")
+            .expect(204)
+            .end((err: any, res: supertest.Response) => {
+                if(err) return done(err)
+
+                expect(Object.keys(res.body).length).to.equal(0)
+
+                done()
+            })
+    })
 })
