@@ -2,11 +2,7 @@ import * as supertest from "supertest"
 import { describe, it } from "mocha"
 import { expect, should } from "chai"
 import { app } from "../../../app"
-import { Response } from "express"
-
-before((done) => {
-    app.on("database_ready", done)
-})
+import { Response, Express } from "express"
 
 describe("/v1/drivingsessions", () => {
 
