@@ -9,5 +9,6 @@ export const sequelize = new Sequelize({
         // member = klassnamn
         var val = filename.substr(0, filename.indexOf(".model")).toLowerCase() === member.toLowerCase()
         return val
-    }
+    },
+    logging: process.env.NODE_ENV.trim() != "test"
 })

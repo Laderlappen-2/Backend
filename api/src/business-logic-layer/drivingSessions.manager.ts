@@ -1,5 +1,6 @@
 import { CollisionAvoidanceEvent, DrivingSession, PositionEvent, Event } from "../data-layer/models" 
 import { FindOptions, Op } from "sequelize"
+import { NotFoundError } from "../data-layer/errors/notFound.error"
 
 export class DrivingSessionsManager {
 
@@ -72,8 +73,7 @@ export class DrivingSessionsManager {
     async getByIdOrThrow(drivingSessionId: number): Promise<DrivingSession> {
         const drivingSession = await DrivingSession.findByPk(drivingSessionId)
         if(!drivingSession)
-            // TODO Create NotFoundError("DrivingSession", { drivingSessionId: id })
-            throw new Error(`Driving session with id ${drivingSessionId} was not found`)
+            throw new NotFoundError("DrivingSession", { drivingSessionId: drivingSessionId })
         return drivingSession
     }
 

@@ -1,6 +1,7 @@
 import { PositionEvent, Event, EventTypeEnum, PositionEventType, EventType } from "../data-layer/models" 
 import { FindOptions, Op } from "sequelize"
 import { PaginationQuery, PaginationResult } from "./drivingSessions.manager"
+import { InvalidEventTypeError } from "../data-layer/errors/invalidEventType.error"
 
 export class EventsManager {
 
@@ -46,8 +47,7 @@ export class EventsManager {
 
     async create(options: CreateEventOptions): Promise<Event> {
         if(Object.keys(EventTypeEnum).indexOf(options.eventType.toString()) == -1) {
-            // TODO Create InvalidEventTypeError
-            throw new Error(`Invalid event type ${options.eventType}`)
+            throw new InvalidEventTypeError(options.eventType)
         }
 
         // TODO Validate options.eventData to match expected data structure based on options.eventType
