@@ -10,6 +10,22 @@ before((done) => {
 
 describe("/v1/events/position", () => {
 
+    it("GET should give status 200 and pagination result", (done) => {
+        supertest(app)
+            .get("/v1/events")
+            .expect(200)
+            .end((err: any, res: supertest.Response) => {
+                if(err) return done(err)
+
+                expect(res.body).to.have.property("results")
+                                        .to.be.an("array")
+
+                expect(res.body.limit).to.equal(0)
+            
+                done()
+            })
+    })
+
     it("POST should return 201 and Location header /v1/events/:id", (done) => {
         supertest(app)
             .post("/v1/events")
@@ -46,8 +62,12 @@ describe("/v1/events/position", () => {
                     positionZ: 7.2
                 }
             })
+            // TODO Implement status code expectation
             .end((err: any, res: supertest.Response) => {
                 if(err) return done(err)
+
+                // TODO Implement error check
+
                 done()
             })
     })
