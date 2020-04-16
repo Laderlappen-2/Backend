@@ -69,6 +69,18 @@ export class DrivingSessionsManager {
         return drivingSession
     }
 
+    async getByIdOrThrow(drivingSessionId: number): Promise<DrivingSession> {
+        const drivingSession = await DrivingSession.findByPk(drivingSessionId)
+        if(!drivingSession)
+            // TODO Create NotFoundError("DrivingSession", { drivingSessionId: id })
+            throw new Error(`Driving session with id ${drivingSessionId} was not found`)
+        return drivingSession
+    }
+
+    async delete(drivingSessionId: number): Promise<void> {
+        return await (await this.getByIdOrThrow(drivingSessionId)).destroy()
+    }
+
 }
 
 export type PaginationQuery = {
