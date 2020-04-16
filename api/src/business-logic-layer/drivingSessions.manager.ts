@@ -11,7 +11,7 @@ export class DrivingSessionsManager {
             if(pagination.from) {
                 options.where = {
                     id: {
-                        [Op.gt]: pagination.from
+                        [Op.gte]: pagination.from
                     }
                 }
             }
