@@ -17,20 +17,6 @@ export class DrivingSessionsManager extends BaseManager<DrivingSession> {
                 include: [{ all: true }]
             }]
         })
-        // Populate collisions with collision events
-        // drivingSession.collisions = await Event.findAll({
-        //     where: {
-        //         drivingSessionId: drivingSessionId
-        //     },
-        //     include: [CollisionAvoidanceEvent]
-        // })
-        // // Populate paths with position events
-        // drivingSession.paths = await Event.findAll({
-        //     where: {
-        //         drivingSessionId: drivingSessionId
-        //     },
-        //     include: [PositionEvent]
-        // })
         return drivingSession
     }
 
