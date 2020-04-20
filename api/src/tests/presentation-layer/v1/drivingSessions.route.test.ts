@@ -48,6 +48,8 @@ describe("/v1/drivingsessions", () => {
             .end((err: any, res: supertest.Response) => {
                 if(err) return done(err)
 
+                console.log(res.body)
+
                 expect(res.body).to.have.property("id")
                                         .to.be.a("number")
                 

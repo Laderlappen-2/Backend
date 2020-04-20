@@ -11,7 +11,7 @@ export class DrivingSession extends Model<DrivingSession> {
     id: number
 
     @HasMany(() => Event)
-    events: [Event]
+    events: Event[]
 
     // @AfterCreate
     // @AfterFind
@@ -28,7 +28,6 @@ export class DrivingSession extends Model<DrivingSession> {
     // }
 
     collisions: Event[] = []
-    // TODO Implement
     paths: any[] = []
 
     toJSON(): any {

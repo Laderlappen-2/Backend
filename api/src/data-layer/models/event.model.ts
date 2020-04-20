@@ -33,5 +33,5 @@ export class Event extends Model<Event> {
     collisionAvoidanceEvent: CollisionAvoidanceEvent
 
     @HasOne(() => PositionEvent)
-    PositionEvent: PositionEvent
+    positionEvent: PositionEvent
 }

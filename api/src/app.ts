@@ -53,6 +53,8 @@ app.use((err: BaseError, req: Request, res: Response, next: NextFunction) => {
     if(res.headersSent)
         return next(err)
 
+    console.log(err)
+
     const errorsManager: ErrorsManager = container.resolve("errorsManager")
     const statusCode = errorsManager.getStatusCode(err)
     const response = {
