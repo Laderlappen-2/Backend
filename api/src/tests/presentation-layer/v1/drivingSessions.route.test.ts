@@ -6,6 +6,7 @@ import { Response, Express } from "express"
 
 describe("/v1/drivingsessions", () => {
 
+    var createdId: number
     it("POST should give status 201 and Location header /v1/drivingsessions/:id", (done) => {
         
         supertest(app)
@@ -20,6 +21,8 @@ describe("/v1/drivingsessions", () => {
                 
                 expect(res.body).to.have.property("collisions")
                 expect(res.body).to.have.property("paths")
+
+                createdId = res.body.id
                 
                 done()
             })
@@ -43,12 +46,10 @@ describe("/v1/drivingsessions", () => {
 
     it("GET should give status 200 and a driving session object", (done) => {        
         supertest(app)
-            .get("/v1/drivingsessions/1")
+            .get("/v1/drivingsessions/" + createdId)
             .expect(200)
             .end((err: any, res: supertest.Response) => {
                 if(err) return done(err)
-
-                console.log(res.body)
 
                 expect(res.body).to.have.property("id")
                                         .to.be.a("number")
@@ -65,7 +66,7 @@ describe("/v1/drivingsessions", () => {
 
     it("DELETE should give status 204 and an empty body", (done) => {
         supertest(app)
-            .delete("/v1/drivingsessions/52")
+            .delete("/v1/drivingsessions/" + createdId)
             .expect(204)
             .end((err: any, res: supertest.Response) => {
                 if(err) return done(err)
