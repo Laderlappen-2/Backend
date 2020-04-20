@@ -1,5 +1,8 @@
-import { Table, Column, Model, AutoIncrement, PrimaryKey, ForeignKey, BelongsTo, DataType } from "sequelize-typescript"
-import { EventType, Session } from "./"
+import { Table, Column, Model, AutoIncrement, PrimaryKey, ForeignKey, BelongsTo, DataType, HasOne } from "sequelize-typescript"
+import { EventType } from "./eventType.model"
+import { DrivingSession } from "./drivingSession.model"
+import { CollisionAvoidanceEvent } from "./collisionAvoidanceEvent.model"
+import { PositionEvent } from "./positionEvent.model"
 
 @Table({ tableName: "events", timestamps: false })
 export class Event extends Model<Event> {
@@ -13,16 +16,22 @@ export class Event extends Model<Event> {
     @Column({ allowNull: false })
     eventTypeId: number
 
-    @ForeignKey(() => Session)
+    @ForeignKey(() => DrivingSession)
     @Column({ allowNull: false })
-    sessionId: number
+    drivingSessionId: number
     
-    @Column({ allowNull: false, defaultValue: new Date(), type: DataType.DATE })
+    @Column({ allowNull: false, type: DataType.DATE })
     dateCreated: Date
 
     @BelongsTo(() => EventType)
     eventType: EventType
     
-    @BelongsTo(() => Session)
-    session: Session
+    @BelongsTo(() => DrivingSession)
+    drivingSession: DrivingSession
+
+    @HasOne(() => CollisionAvoidanceEvent)
+    collisionAvoidanceEvent: CollisionAvoidanceEvent
+
+    @HasOne(() => PositionEvent)
+    positionEvent: PositionEvent
 }
