@@ -1,9 +1,14 @@
 import * as supertest from "supertest"
-import { describe, it } from "mocha"
+import { describe, it, before } from "mocha"
 import { expect, should } from "chai"
 import { app } from "../../../app"
 import { Response, Express } from "express"
-import { EventTypeEnum } from "../../../data-layer/models"
+import { EventTypeEnum, DrivingSession } from "../../../data-layer/models"
+
+var drivingSession: DrivingSession
+before(async () => {
+    drivingSession = await new DrivingSession().save()
+})
 
 describe("/v1/events", () => {
 
@@ -28,7 +33,7 @@ describe("/v1/events", () => {
             .post("/v1/events")
             .send({
                 eventType: EventTypeEnum.POSITION,
-                drivingSessionId: 1,
+                drivingSessionId: drivingSession.id,
                 eventData: {
                     positionX: 1.333,
                     positionY: 9.123324534,
@@ -52,7 +57,7 @@ describe("/v1/events", () => {
             .post("/v1/events")
             .send({
                 eventType: EventTypeEnum.COLLISSION_AVOIDANCE,
-                drivingSessionId: 1,
+                drivingSessionId: drivingSession.id,
                 eventData: {
                     positionX: 1.337,
                     positionY: 69.69,
@@ -93,4 +98,8 @@ describe("/v1/events", () => {
             })
     })
 
+})
+
+after(async () => {
+    await drivingSession.destroy()
 })

@@ -15,6 +15,39 @@ export class EventType extends Model<EventType> {
     events: [Event]
 }
 
+const EventTypeDefaults = [
+    {
+        id: 1,
+        name: "CONNECTED",
+    },
+    {
+        id: 2,
+        name: "DISCONNECTED",
+    },
+    {
+        id: 3,
+        name: "COLLISSION_AVOIDANCE",
+    },
+    {
+        id: 4,
+        name: "COLLISSION",
+    },
+    {
+        id: 5,
+        name: "POSITION",
+    },
+    {
+        id: 6,
+        name: "USER_INPUT",
+    },
+]
+
+export async function createEventTypeDefaults(): Promise<any[]> {
+    const res = await EventType.bulkCreate(EventTypeDefaults, { ignoreDuplicates: true })
+    console.log("Executed " + res.length + " default event types")
+    return res
+}
+
 export enum EventTypeEnum {
     CONNECTED = 1,
     DISCONNECTED = 2,

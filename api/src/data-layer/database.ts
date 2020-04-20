@@ -10,5 +10,5 @@ export const sequelize = new Sequelize({
         var val = filename.substr(0, filename.indexOf(".model")).toLowerCase() === member.toLowerCase()
         return val
     },
-    logging: process.env.NODE_ENV.trim() != "test"
+    logging: process.env.NODE_ENV?.trim() != "test"
 })

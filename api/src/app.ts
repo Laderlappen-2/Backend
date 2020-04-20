@@ -11,13 +11,17 @@ import { BaseError } from "./data-layer/errors/base.error"
 import { NotFoundError } from "./data-layer/errors/notFound.error"
 import { InvalidEventTypeError } from "./data-layer/errors/invalidEventType.error"
 import { ErrorsManager } from "./business-logic-layer"
+import { EventType, createEventTypeDefaults } from "./data-layer/models"
 
 export const app = express()
 
 // Sync database
 sequelize.sync()
-.then(() => {
+.then(async () => {
+    await createEventTypeDefaults()
+
     console.log("Database synchronized..")
+
     app.emit("database_ready")
 })
 .catch(err => {
@@ -53,7 +57,7 @@ app.use((err: BaseError, req: Request, res: Response, next: NextFunction) => {
     if(res.headersSent)
         return next(err)
 
-    if(process.env.NODE_ENV.trim() != "test")
+    if(process.env.NODE_ENV?.trim() != "test")
         console.log(err)
 
     const errorsManager: ErrorsManager = container.resolve("errorsManager")
