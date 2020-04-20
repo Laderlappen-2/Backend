@@ -20,7 +20,7 @@ export class Event extends Model<Event> {
     @Column({ allowNull: false })
     drivingSessionId: number
     
-    @Column({ allowNull: false, defaultValue: new Date(), type: DataType.DATE })
+    @Column({ allowNull: false, type: DataType.DATE })
     dateCreated: Date
 
     @BelongsTo(() => EventType)

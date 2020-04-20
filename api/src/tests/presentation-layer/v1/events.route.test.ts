@@ -3,6 +3,7 @@ import { describe, it } from "mocha"
 import { expect, should } from "chai"
 import { app } from "../../../app"
 import { Response, Express } from "express"
+import { EventTypeEnum } from "../../../data-layer/models"
 
 describe("/v1/events", () => {
 
@@ -22,16 +23,40 @@ describe("/v1/events", () => {
             })
     })
 
-    it("POST should return 201 and Location header /v1/events/:id", (done) => {
+    it("POST (position event) should return 201 and Location header /v1/events/:id", (done) => {
         supertest(app)
             .post("/v1/events")
             .send({
-                eventType: 5,
+                eventType: EventTypeEnum.POSITION,
                 drivingSessionId: 1,
                 eventData: {
                     positionX: 1.333,
                     positionY: 9.123324534,
-                    positionZ: 7.2
+                    dateCreated: new Date()
+                }
+            })
+            .expect(201)
+            .expect("Location", /\/v1\/events\/[0-9]+/)
+            .end((err: any, res: supertest.Response) => {
+                if(err) return done(err)
+
+                expect(res.body).to.have.property("id")
+                                        .to.be.a("number")
+
+                done()
+            })
+    })
+
+    it("POST (collision avoidance event) should return 201 and Location header /v1/events/:id", (done) => {
+        supertest(app)
+            .post("/v1/events")
+            .send({
+                eventType: EventTypeEnum.COLLISSION_AVOIDANCE,
+                drivingSessionId: 1,
+                eventData: {
+                    positionX: 1.337,
+                    positionY: 69.69,
+                    dateCreated: new Date()
                 }
             })
             .expect(201)

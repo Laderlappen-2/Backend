@@ -3,6 +3,8 @@ import { NotFoundError, InvalidEventTypeError, BaseError } from "../data-layer/e
 export const ERROR_STATUS_CODES = {}
 ERROR_STATUS_CODES[NotFoundError.name] = 404
 ERROR_STATUS_CODES[InvalidEventTypeError.name] = 400
+ERROR_STATUS_CODES["SequelizeValidationError"] = 400
+ERROR_STATUS_CODES["ValidationError"] = 400
 
 export class ErrorsManager {
     constructor() {}

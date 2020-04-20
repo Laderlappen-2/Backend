@@ -39,17 +39,4 @@ export default class DrivingSessionsRoute {
         }
     }
 
-    @route("/position")
-    @POST()
-    async createPositionEvent(req: Request, res: Response, next: NextFunction) {
-        try {
-            const event = await this.eventsManager.createPositionEvent(req.body)
-            res.status(201)
-                .header("Location", `${req.originalUrl}/${event.id}`)
-                .json(event)
-        } catch(err) {
-            next(err)
-        }
-    }
-
 }

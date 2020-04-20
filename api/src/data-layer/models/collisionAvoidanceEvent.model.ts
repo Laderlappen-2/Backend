@@ -15,9 +15,6 @@ export class CollisionAvoidanceEvent extends Model<CollisionAvoidanceEvent> {
     @Column({ allowNull: false, type: DataType.FLOAT })
     positionY: number
 
-    @Column({ allowNull: false, type: DataType.FLOAT })
-    positionZ: number
-
     @BelongsTo(() => Event)
     event: Event
 }
