@@ -1,4 +1,4 @@
-import { PositionEvent, Event, EventTypeEnum, CollisionAvoidanceEvent } from "../data-layer/models" 
+import { PositionEvent, Event, EventTypeEnum, CollisionAvoidanceEvent, EventType } from "../data-layer/models" 
 import { FindOptions, Op } from "sequelize"
 import { PaginationQuery, PaginationResult } from "./drivingSessions.manager"
 import { InvalidEventTypeError } from "../data-layer/errors/invalidEventType.error"
@@ -52,6 +52,10 @@ export class EventsManager extends BaseManager<Event> {
             },
             include: [{ all: true }]
         })
+    }
+
+    async getEventTypes() {
+        return await EventType.findAll()
     }
 }
 

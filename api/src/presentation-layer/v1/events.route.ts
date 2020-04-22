@@ -39,4 +39,15 @@ export default class DrivingSessionsRoute {
         }
     }
 
+    @route("/types")
+    @GET()
+    async getAllEventTypes(req: Request, res: Response, next: NextFunction) {
+        try {
+            var eventTypesEnum = await this.eventsManager.getEventTypes()
+            res.json(eventTypesEnum)
+        }catch(err) {
+            next(err)
+        }
+    }
+
 }
