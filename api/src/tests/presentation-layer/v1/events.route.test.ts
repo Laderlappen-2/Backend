@@ -36,9 +36,9 @@ describe("/v1/events", () => {
                 drivingSessionId: drivingSession.id,
                 eventData: {
                     positionX: 1.333,
-                    positionY: 9.123324534,
-                    dateCreated: new Date()
-                }
+                    positionY: 9.123324534
+                },
+                dateCreated: new Date()
             })
             .expect(201)
             .expect("Location", /\/v1\/events\/[0-9]+/)
@@ -60,9 +60,9 @@ describe("/v1/events", () => {
                 drivingSessionId: drivingSession.id,
                 eventData: {
                     positionX: 1.337,
-                    positionY: 69.69,
-                    dateCreated: new Date()
-                }
+                    positionY: 69.69
+                },
+                dateCreated: new Date()
             })
             .expect(201)
             .expect("Location", /\/v1\/events\/[0-9]+/)
