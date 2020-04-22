@@ -50,6 +50,7 @@ export abstract class BaseManager<T extends Model> {
 
     async create(modelData?: any): Promise<T>
     async create(modelData?: T): Promise<T> {
+        console.log("ÖJ")
         return await new this.modelClass(modelData).save()
     }
 

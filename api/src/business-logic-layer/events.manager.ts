@@ -20,7 +20,7 @@ export class EventsManager extends BaseManager<Event> {
         const event = await new Event({
             eventTypeId: options.eventType,
             drivingSessionId: options.drivingSessionId,
-            dateCreated: options.eventData?.dateCreated
+            dateCreated: options.dateCreated
         }).save()
 
         switch(options.eventType) {
@@ -62,5 +62,6 @@ export class EventsManager extends BaseManager<Event> {
 export type CreateEventOptions = {
     eventType: EventTypeEnum
     drivingSessionId: number
+    dateCreated: Date
     eventData: any
 }
