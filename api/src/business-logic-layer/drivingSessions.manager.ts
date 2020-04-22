@@ -1,4 +1,4 @@
-import { DrivingSession, Event } from "../data-layer/models" 
+import { DrivingSession, Event, CollisionAvoidanceEvent, PositionEvent } from "../data-layer/models" 
 import { BaseManager } from "./base.manager"
 
 export class DrivingSessionsManager extends BaseManager<DrivingSession> {
@@ -14,7 +14,7 @@ export class DrivingSessionsManager extends BaseManager<DrivingSession> {
             },
             include: [{
                 model: Event,
-                include: [{ all: true }]
+                include: [PositionEvent, CollisionAvoidanceEvent]
             }]
         })
         return drivingSession
