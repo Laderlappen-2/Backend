@@ -1,4 +1,4 @@
-import { PositionEvent, Event, EventTypeEnum, CollisionAvoidanceEvent } from "../data-layer/models" 
+import { PositionEvent, Event, EventTypeEnum, CollisionAvoidanceEvent, EventType } from "../data-layer/models" 
 import { FindOptions, Op } from "sequelize"
 import { PaginationQuery, PaginationResult } from "./drivingSessions.manager"
 import { InvalidEventTypeError } from "../data-layer/errors/invalidEventType.error"
@@ -20,7 +20,7 @@ export class EventsManager extends BaseManager<Event> {
         const event = await new Event({
             eventTypeId: options.eventType,
             drivingSessionId: options.drivingSessionId,
-            dateCreated: options.eventData?.dateCreated
+            dateCreated: options.dateCreated
         }).save()
 
         switch(options.eventType) {
@@ -53,10 +53,15 @@ export class EventsManager extends BaseManager<Event> {
             include: [{ all: true }]
         })
     }
+
+    async getEventTypes() {
+        return await EventType.findAll()
+    }
 }
 
 export type CreateEventOptions = {
     eventType: EventTypeEnum
     drivingSessionId: number
+    dateCreated: Date
     eventData: any
 }
