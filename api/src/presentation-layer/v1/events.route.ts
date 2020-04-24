@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express"
 import { EventsManager, PaginationQuery } from '../../business-logic-layer'
 
 @route('/events')
-export default class DrivingSessionsRoute {
+export default class EventsRoute {
 
     private readonly eventsManager: EventsManager
     
@@ -34,6 +34,19 @@ export default class DrivingSessionsRoute {
             res.status(201)
                 .header("Location", `${req.originalUrl}/${event.id}`)
                 .json(event)
+        } catch(err) {
+            next(err)
+        }
+    }
+
+    @route("/batch")
+    @POST()
+    async createMultipleEvents(req: Request, res: Response, next: NextFunction) {
+        try {
+            const events = await this.eventsManager.createBatch(req.body)
+            res.status(201)
+                .header("Location", `${req.originalUrl}/${events.id}`)
+                .json(events)
         } catch(err) {
             next(err)
         }

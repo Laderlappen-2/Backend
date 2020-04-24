@@ -1,5 +1,5 @@
 import * as supertest from "supertest"
-import { describe, it, before } from "mocha"
+import { describe, it, before, after } from "mocha"
 import { expect, should } from "chai"
 import { app } from "../../../app"
 import { Response, Express } from "express"
@@ -63,6 +63,42 @@ describe("/v1/events", () => {
                     positionY: 69.69
                 },
                 dateCreated: new Date()
+            })
+            .expect(201)
+            .expect("Location", /\/v1\/events\/[0-9]+/)
+            .end((err: any, res: supertest.Response) => {
+                if(err) return done(err)
+
+                expect(res.body).to.have.property("id")
+                                        .to.be.a("number")
+
+                done()
+            })
+    })
+
+    it("POST should return 201 and appropriate location header", (done) => {
+        supertest(app)
+            .post("/v1/events/batch")
+            .send({
+                drivingSessionId: drivingSession.id,
+                events: [
+                    {
+                        eventType: EventTypeEnum.COLLISSION_AVOIDANCE,
+                        eventData: {
+                            positionX: 1.337,
+                            positionY: 69.69
+                        },
+                        dateCreated: new Date()
+                    },
+                    {
+                        eventType: EventTypeEnum.POSITION,
+                        eventData: {
+                            positionX: 1.333,
+                            positionY: 9.123324534
+                        },
+                        dateCreated: new Date()
+                    }
+                ]
             })
             .expect(201)
             .expect("Location", /\/v1\/events\/[0-9]+/)
