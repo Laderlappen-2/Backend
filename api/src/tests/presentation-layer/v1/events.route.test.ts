@@ -76,7 +76,7 @@ describe("/v1/events", () => {
             })
     })
 
-    it("POST should return 201 and appropriate location header", (done) => {
+    it("POSTing multiple events should return 201 and contain a count and new event ids", (done) => {
         supertest(app)
             .post("/v1/events/batch")
             .send({
@@ -101,12 +101,14 @@ describe("/v1/events", () => {
                 ]
             })
             .expect(201)
-            .expect("Location", /\/v1\/events\/[0-9]+/)
             .end((err: any, res: supertest.Response) => {
                 if(err) return done(err)
 
-                expect(res.body).to.have.property("id")
+                expect(res.body).to.have.property("count")
                                         .to.be.a("number")
+                        
+                expect(res.body).to.have.property("eventIds")
+                                        .to.be.an("array")
 
                 done()
             })

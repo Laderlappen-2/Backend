@@ -54,7 +54,7 @@ export class EventsManager extends BaseManager<Event> {
         })
     }
 
-    async createBatch(events: CreateEventBatchOptions): Promise<Event> {
+    async createBatch(events: CreateEventBatchOptions): Promise<EventBatchResult> {
         // TODO: Validate options
         
         // Create base events
@@ -66,36 +66,43 @@ export class EventsManager extends BaseManager<Event> {
                 dateCreated: event.dateCreated
             })
         }
-        Event.bulkCreate(baseEvents)
+        const savedEvents = await Event.bulkCreate(baseEvents)
 
         // Create sub events
-        /* let positionEvents = []
+        let positionEvents = []
         let collisionAvoidanceEvents = []
+        let index = 0;
         for(const event of events.events) {
             
             switch(event.eventType) {
                 case EventTypeEnum.COLLISSION_AVOIDANCE: {
                     collisionAvoidanceEvents.push({
-                        eventId: event.id,
-                        positionX: options.eventData?.positionX,
-                        positionY: options.eventData?.positionY,
+                        eventId: savedEvents[index].id,
+                        positionX: event.eventData?.positionX,
+                        positionY: event.eventData?.positionY,
                     })
                     break
                 }
 
                 case EventTypeEnum.POSITION: {
-
+                    positionEvents.push({
+                            eventId: savedEvents[index].id,
+                            positionX: event.eventData?.positionX,
+                            positionY: event.eventData?.positionY,
+                        })
                     break
                 }
-                
-        } */
+            }
 
-        return new Event({
-            id: 1,
-            eventTypeId: EventTypeEnum.COLLISSION_AVOIDANCE,
-            drivingSessionId: events.drivingSessionId,
-            dateCreated: new Date()
-        })
+            index += 1
+        }
+        CollisionAvoidanceEvent.bulkCreate(collisionAvoidanceEvents)
+        PositionEvent.bulkCreate(positionEvents)
+
+        return {
+            count: savedEvents.length,
+            eventIds: savedEvents.map(x => x.id) 
+        }
     }
 
     async getEventTypes() {
@@ -119,4 +126,9 @@ export type BatchEvent = {
 export type CreateEventBatchOptions = {
     drivingSessionId: number
     events: [BatchEvent]
+}
+
+export type EventBatchResult = {
+    count: number
+    eventIds: number[]
 }

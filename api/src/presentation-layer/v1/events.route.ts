@@ -43,10 +43,9 @@ export default class EventsRoute {
     @POST()
     async createMultipleEvents(req: Request, res: Response, next: NextFunction) {
         try {
-            const events = await this.eventsManager.createBatch(req.body)
+            const result = await this.eventsManager.createBatch(req.body)
             res.status(201)
-                .header("Location", `${req.originalUrl}/${events.id}`)
-                .json(events)
+                .json(result)
         } catch(err) {
             next(err)
         }
