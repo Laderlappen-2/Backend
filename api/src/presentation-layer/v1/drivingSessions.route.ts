@@ -1,15 +1,17 @@
 import { route, GET, POST, before, DELETE } from 'awilix-express'
 import { Request, Response, NextFunction } from "express"
-import { DrivingSessionsManager, PaginationQuery } from '../../business-logic-layer'
+import { DrivingSessionsManager, PaginationQuery, EventsManager, CreateEventBatchOptions } from '../../business-logic-layer'
 import url = require("url")
 
 @route('/drivingsessions')
 export default class DrivingSessionsRoute {
 
     private readonly drivingSessionsManager: DrivingSessionsManager
+    private readonly eventsManager: EventsManager
     
-    constructor({ drivingSessionManager }) {
+    constructor({ drivingSessionManager, eventsManager }) {
         this.drivingSessionsManager = drivingSessionManager
+        this.eventsManager = eventsManager
     }
 
     @GET()
@@ -56,6 +58,23 @@ export default class DrivingSessionsRoute {
         try {
             await this.drivingSessionsManager.delete(parseInt(req.params.id))
             res.sendStatus(204)
+        } catch(err) {
+            next(err)
+        }
+    }
+
+    @route("/:id/events")
+    @POST()
+    async createDrivingSessionEvents(req: Request, res: Response, next: NextFunction) {
+        try {
+            const createEventBatchOptions: CreateEventBatchOptions = {
+                drivingSessionId: parseInt(req.params.id),
+                events: req.body
+            }
+            
+            const result = await this.eventsManager.createBatch(createEventBatchOptions)
+            res.status(201)
+                .json(result)
         } catch(err) {
             next(err)
         }

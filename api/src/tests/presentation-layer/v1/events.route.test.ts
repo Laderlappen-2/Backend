@@ -78,28 +78,25 @@ describe("/v1/events", () => {
 
     it("POSTing multiple events should return 201 and contain a count and new event ids", (done) => {
         supertest(app)
-            .post("/v1/events/batch")
-            .send({
-                drivingSessionId: drivingSession.id,
-                events: [
-                    {
-                        eventType: EventTypeEnum.COLLISSION_AVOIDANCE,
-                        eventData: {
-                            positionX: 1.337,
-                            positionY: 69.69
-                        },
-                        dateCreated: new Date()
+            .post("/v1/drivingsessions/"+drivingSession.id+"/events")
+            .send([
+                {
+                    eventType: EventTypeEnum.COLLISSION_AVOIDANCE,
+                    eventData: {
+                        positionX: 1.337,
+                        positionY: 69.69
                     },
-                    {
-                        eventType: EventTypeEnum.POSITION,
-                        eventData: {
-                            positionX: 1.333,
-                            positionY: 9.123324534
-                        },
-                        dateCreated: new Date()
-                    }
-                ]
-            })
+                    dateCreated: new Date()
+                },
+                {
+                    eventType: EventTypeEnum.POSITION,
+                    eventData: {
+                        positionX: 1.333,
+                        positionY: 9.123324534
+                    },
+                    dateCreated: new Date()
+                }
+            ])
             .expect(201)
             .end((err: any, res: supertest.Response) => {
                 if(err) return done(err)
