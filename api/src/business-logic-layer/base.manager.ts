@@ -56,7 +56,7 @@ export abstract class BaseManager<T extends Model> {
     async getByIdOrThrow(primaryKey: any): Promise<T> {
         const modelInstance = await this.modelClass.findByPk(primaryKey)
         if(!modelInstance)
-            throw new NotFoundError(this.modelClass.name, { id: primaryKey })
+            throw new NotFoundError(`${this.modelClass.name} id ${primaryKey}`)
         return modelInstance
     }
 

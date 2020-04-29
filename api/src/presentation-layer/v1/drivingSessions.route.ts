@@ -9,8 +9,8 @@ export default class DrivingSessionsRoute {
     private readonly drivingSessionsManager: DrivingSessionsManager
     private readonly eventsManager: EventsManager
     
-    constructor({ drivingSessionManager, eventsManager }) {
-        this.drivingSessionsManager = drivingSessionManager
+    constructor({ drivingSessionsManager, eventsManager }) {
+        this.drivingSessionsManager = drivingSessionsManager
         this.eventsManager = eventsManager
     }
 

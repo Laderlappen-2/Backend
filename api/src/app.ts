@@ -39,7 +39,7 @@ container.register({
     // class TodosService { constructor({ user }) { } }
     //userManager: asClass(managers.UserManager)
     helloWorldManager: asClass(managers.HelloWorldManager),
-    drivingSessionManager: asClass(managers.DrivingSessionsManager),
+    drivingSessionsManager: asClass(managers.DrivingSessionsManager),
     eventsManager: asClass(managers.EventsManager),
     errorsManager: asClass(managers.ErrorsManager),
 })

@@ -1,13 +1,16 @@
 import { PositionEvent, Event, EventTypeEnum, CollisionAvoidanceEvent, EventType } from "../data-layer/models" 
 import { FindOptions, Op } from "sequelize"
-import { PaginationQuery, PaginationResult } from "./drivingSessions.manager"
+import { PaginationQuery, PaginationResult, DrivingSessionsManager } from "./drivingSessions.manager"
 import { InvalidEventTypeError } from "../data-layer/errors/invalidEventType.error"
 import { BaseManager } from "./base.manager"
 
 export class EventsManager extends BaseManager<Event> {
 
-    constructor(cradle) {
-        super(cradle, Event)
+    private drivingSessionsManager: DrivingSessionsManager
+
+    constructor({ drivingSessionsManager }) {
+        super({ drivingSessionsManager }, Event)
+        this.drivingSessionsManager = drivingSessionsManager
     }
 
     async create(options: CreateEventOptions): Promise<Event> {
@@ -56,6 +59,9 @@ export class EventsManager extends BaseManager<Event> {
 
     async createBatch(events: CreateEventBatchOptions): Promise<EventBatchResult> {
         // TODO: Validate options
+
+        // Require that the driving session exists
+        await this.drivingSessionsManager.getByIdOrThrow(events.drivingSessionId)
         
         // Create base events
         let baseEvents = []
