@@ -1,6 +1,5 @@
-# Backend
 [![Build status](https://travis-ci.org/Laderlappen-2/Backend.svg?branch=dev-travis)](https://travis-ci.org/travis-ci/travis-web)
-
+# Backend
 
 # Project setup
 ## Based on
