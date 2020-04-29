@@ -14,19 +14,19 @@ export class EventsManager extends BaseManager<Event> {
     }
 
     async create(options: CreateEventOptions): Promise<Event> {
-        if(Object.keys(EventTypeEnum).indexOf(options.eventType.toString()) == -1) {
-            throw new InvalidEventTypeError(options.eventType)
+        if(Object.keys(EventTypeEnum).indexOf(options.eventTypeId.toString()) == -1) {
+            throw new InvalidEventTypeError(options.eventTypeId)
         }
 
         // TODO Validate options.eventData to match expected data structure based on options.eventType
 
         const event = await new Event({
-            eventTypeId: options.eventType,
+            eventTypeId: options.eventTypeId,
             drivingSessionId: options.drivingSessionId,
             dateCreated: options.dateCreated
         }).save()
 
-        switch(options.eventType) {
+        switch(options.eventTypeId) {
             case EventTypeEnum.POSITION: {
                 await new PositionEvent({
                     eventId: event.id,
@@ -67,7 +67,7 @@ export class EventsManager extends BaseManager<Event> {
         let baseEvents = []
         for(const event of events.events) {
             baseEvents.push({
-                eventTypeId: event.eventType,
+                eventTypeId: event.eventTypeId,
                 drivingSessionId: events.drivingSessionId,
                 dateCreated: event.dateCreated
             })
@@ -80,7 +80,7 @@ export class EventsManager extends BaseManager<Event> {
         let index = 0;
         for(const event of events.events) {
             
-            switch(event.eventType) {
+            switch(event.eventTypeId) {
                 case EventTypeEnum.COLLISSION_AVOIDANCE: {
                     collisionAvoidanceEvents.push({
                         eventId: savedEvents[index].id,
@@ -117,14 +117,14 @@ export class EventsManager extends BaseManager<Event> {
 }
 
 export type CreateEventOptions = {
-    eventType: EventTypeEnum
+    eventTypeId: EventTypeEnum
     drivingSessionId: number
     dateCreated: Date
     eventData: any
 }
 
 export type BatchEvent = {
-    eventType: EventTypeEnum
+    eventTypeId: EventTypeEnum
     dateCreated: Date
     eventData: any
 }
