@@ -1,11 +1,28 @@
 version: "3.7"
 
 services:
-    # Note.js application
+    # Postgres
+    postgres:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: test
+            POSTGRES_DB: backend
+        ports:
+        - "35432:5432"
+            
+    # Node.js application
     api:
         build: 
             context: "api"
             dockerfile: Dockerfile
+
+        environment:
+            POSTGRES_URL: postgres://root:test@postgres:5432/backend
+
+        depends_on:
+            - postgres
 
         volumes: 
             - ./api/src/:/usr/src/api/src/

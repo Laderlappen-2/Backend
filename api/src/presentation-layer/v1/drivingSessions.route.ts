@@ -2,6 +2,8 @@ import { route, GET, POST, before, DELETE } from 'awilix-express'
 import { Request, Response, NextFunction } from "express"
 import { DrivingSessionsManager, PaginationQuery, EventsManager, CreateEventBatchOptions } from '../../business-logic-layer'
 import url = require("url")
+import { BadRequestError } from '../errors/badRequest.error'
+import { isNumber } from 'util'
 
 @route('/drivingsessions')
 export default class DrivingSessionsRoute {
@@ -19,10 +21,14 @@ export default class DrivingSessionsRoute {
         try {
             const pagination: PaginationQuery = {}
             
-            if(req.query.from)
-                pagination.from = parseInt(req.query.from)
-            if(req.query.limit)
-                pagination.limit = parseInt(req.query.limit)
+            if(req.query.from) {
+                var from: String = new String(req.query.from)
+                pagination.from = parseInt(from.toString())
+            }
+            if(req.query.limit) {
+                pagination.limit = parseInt(limit.toString())
+                var limit: String = new String(req.query.limit)
+            }
 
             res.json(await this.drivingSessionsManager.getWithPagination(pagination))
         }catch(err) {
