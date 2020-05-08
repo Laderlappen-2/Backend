@@ -5,6 +5,6 @@ before_install:
 - docker-compose -f docker-compose.test.yml -p ci build   
 script:
 - docker-compose -f docker-compose.test.yml -p ci up -d   
-- docker wait ci_sut_1
+#- docker wait ci_sut_1
 after_script:
-- docker logs -f ci_sut_1
+- docker ps
