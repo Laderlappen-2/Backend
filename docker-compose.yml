@@ -19,7 +19,7 @@ services:
             dockerfile: Dockerfile
 
         environment:
-            POSTGRES_URL: postgres://root:test@postgres:5432/backend
+            DATABASE_URL: postgres://root:test@postgres:5432/backend
 
         depends_on:
             - postgres
