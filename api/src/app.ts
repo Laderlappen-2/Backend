@@ -47,6 +47,10 @@ container.register({
 app.use(bodyParser.json())
 
 // Setup awilix express
+app.use((req, res, next) => {
+    console.log(`Received ${req.method} request to ${req.originalUrl} with body: ${JSON.stringify(req.body)}`)
+    next()
+})
 app.use(scopePerRequest(container))
 for(let folderName of fs.readdirSync(__dirname + "/presentation-layer")) {
     app.use(`/${folderName}`, loadControllers(`presentation-layer/${folderName}/*.route.ts`, { cwd: __dirname }))

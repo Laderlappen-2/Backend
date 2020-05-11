@@ -32,7 +32,7 @@ describe("/v1/events", () => {
         supertest(app)
             .post("/v1/events")
             .send({
-                eventType: EventTypeEnum.POSITION,
+                eventTypeId: EventTypeEnum.POSITION,
                 drivingSessionId: drivingSession.id,
                 eventData: {
                     positionX: 1.333,
@@ -56,7 +56,7 @@ describe("/v1/events", () => {
         supertest(app)
             .post("/v1/events")
             .send({
-                eventType: EventTypeEnum.COLLISSION_AVOIDANCE,
+                eventTypeId: EventTypeEnum.COLLISSION_AVOIDANCE,
                 drivingSessionId: drivingSession.id,
                 eventData: {
                     positionX: 1.337,
@@ -81,7 +81,7 @@ describe("/v1/events", () => {
             .post("/v1/drivingsessions/"+drivingSession.id+"/events")
             .send([
                 {
-                    eventType: EventTypeEnum.COLLISSION_AVOIDANCE,
+                    eventTypeId: EventTypeEnum.COLLISSION_AVOIDANCE,
                     eventData: {
                         positionX: 1.337,
                         positionY: 69.69
@@ -89,7 +89,7 @@ describe("/v1/events", () => {
                     dateCreated: new Date()
                 },
                 {
-                    eventType: EventTypeEnum.POSITION,
+                    eventTypeId: EventTypeEnum.POSITION,
                     eventData: {
                         positionX: 1.333,
                         positionY: 9.123324534
@@ -115,7 +115,7 @@ describe("/v1/events", () => {
         supertest(app)
             .post("/v1/events")
             .send({
-                eventType: 0,
+                eventTypeId: 0,
                 drivingSessionId: 1,
                 eventData: {
                     positionX: 1.333,
