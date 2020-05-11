@@ -1,6 +1,9 @@
-import { Table, Column, Model, AutoIncrement, PrimaryKey, HasMany } from "sequelize-typescript"
+import { Table, Column, Model, PrimaryKey, HasMany } from "sequelize-typescript"
 import { Event } from "./event.model"
 
+/**
+ * Defines the type of an event
+ */
 @Table({ tableName: "eventTypes", timestamps: false })
 export class EventType extends Model<EventType> {
     
@@ -15,6 +18,9 @@ export class EventType extends Model<EventType> {
     events: [Event]
 }
 
+/**
+ * Default event type values
+ */
 const EventTypeDefaults = [
     {
         id: 1,
@@ -42,6 +48,7 @@ const EventTypeDefaults = [
     },
 ]
 
+/** @internal */
 export async function createEventTypeDefaults(): Promise<any[]> {
     const res = await EventType.bulkCreate(EventTypeDefaults, { ignoreDuplicates: true })
     console.log("Executed " + res.length + " default event types")

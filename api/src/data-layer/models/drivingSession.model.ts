@@ -2,6 +2,9 @@ import { Table, Column, Model, HasMany, AutoIncrement, PrimaryKey, BelongsToMany
 import { Event } from "./event.model"
 import { CollisionAvoidanceEvent } from "./collisionAvoidanceEvent.model"
 
+/**
+ * A session of manual control of the mower
+ */
 @Table({ tableName: "drivingSessions" })
 export class DrivingSession extends Model<DrivingSession> {
 

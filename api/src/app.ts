@@ -1,18 +1,23 @@
+// app.ts
+/**
+ * Application configuration
+ */
+
 import * as dotenv from "dotenv"
-import express = require("express")
 import { Request, Response, NextFunction } from "express"
-import bodyParser = require("body-parser")
-import fs = require("fs")
+import { asClass, createContainer } from "awilix"
 import { loadControllers, scopePerRequest } from 'awilix-express'
+import * as express from "express"
+import * as bodyParser from "body-parser"
+import * as fs from "fs"
 import * as managers from "./business-logic-layer"
-const { asClass, asValue, createContainer} = require('awilix')
+
 import { sequelize } from "./data-layer/database"
 import { BaseError } from "./data-layer/errors/base.error"
-import { NotFoundError } from "./data-layer/errors/notFound.error"
-import { InvalidEventTypeError } from "./data-layer/errors/invalidEventType.error"
 import { ErrorsManager } from "./business-logic-layer"
-import { EventType, createEventTypeDefaults } from "./data-layer/models"
+import { createEventTypeDefaults } from "./data-layer/models"
 
+/** The main express instance of the app */
 export const app = express()
 
 // Sync database
@@ -31,14 +36,9 @@ sequelize.sync()
 // Setup dotenv
 dotenv.config()
 
-// Setup awilix container
-const container = createContainer()
-container.register({
-    // Scoped lifetime = new instance per request
-    // Imagine the TodosService needs a `user`.
-    // class TodosService { constructor({ user }) { } }
-    //userManager: asClass(managers.UserManager)
-    helloWorldManager: asClass(managers.HelloWorldManager),
+/** The awilix container for dependency injection */
+const awilixContainer = createContainer()
+awilixContainer.register({
     drivingSessionsManager: asClass(managers.DrivingSessionsManager),
     eventsManager: asClass(managers.EventsManager),
     errorsManager: asClass(managers.ErrorsManager),
@@ -51,7 +51,7 @@ app.use((req, res, next) => {
     console.log(`Received ${req.method} request to ${req.originalUrl} with body: ${JSON.stringify(req.body)}`)
     next()
 })
-app.use(scopePerRequest(container))
+app.use(scopePerRequest(awilixContainer))
 for(let folderName of fs.readdirSync(__dirname + "/presentation-layer")) {
     app.use(`/${folderName}`, loadControllers(`presentation-layer/${folderName}/*.route.ts`, { cwd: __dirname }))
 }
@@ -64,7 +64,7 @@ app.use((err: BaseError, req: Request, res: Response, next: NextFunction) => {
     if(process.env.NODE_ENV?.trim() != "test")
         console.log(err)
 
-    const errorsManager: ErrorsManager = container.resolve("errorsManager")
+    const errorsManager: ErrorsManager = awilixContainer.resolve("errorsManager")
     const statusCode = errorsManager.getStatusCode(err)
     const response = {
         status: statusCode,
