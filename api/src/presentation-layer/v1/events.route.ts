@@ -15,11 +15,15 @@ export default class EventsRoute {
     async getEvents(req: Request, res: Response, next: NextFunction) {
         try {
             const pagination: PaginationQuery = {}
-            
-            if(req.query.from)
-                pagination.from = parseInt(req.query.from)
-            if(req.query.limit)
-                pagination.limit = parseInt(req.query.limit)
+
+            if(req.query.from) {
+                var from: String = new String(req.query.from)
+                pagination.from = parseInt(from.toString())
+            }
+            if(req.query.limit) {
+                pagination.limit = parseInt(limit.toString())
+                var limit: String = new String(req.query.limit)
+            }
 
             res.json(await this.eventsManager.getWithPagination(pagination))
         } catch(err) {
