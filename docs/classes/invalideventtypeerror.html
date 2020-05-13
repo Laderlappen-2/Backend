@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ErrorsManager | backend</title>
+	<title>InvalidEventTypeError | backend</title>
 	<meta name="description" content="Documentation for backend">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="errorsmanager.html">ErrorsManager</a>
+					<a href="invalideventtypeerror.html">InvalidEventTypeError</a>
 				</li>
 			</ul>
-			<h1>Class ErrorsManager</h1>
+			<h1>Class InvalidEventTypeError</h1>
 		</div>
 	</div>
 </header>
@@ -67,7 +67,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Simple error manager class</p>
+						<p>Thrown when an invalid event type was specified</p>
 					</div>
 				</div>
 			</section>
@@ -75,7 +75,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ErrorsManager</span>
+						<a href="baseerror.html" class="tsd-signature-type">BaseError</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">InvalidEventTypeError</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -86,13 +91,7 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="errorsmanager.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Methods</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="errorsmanager.html#getstatuscode" class="tsd-kind-icon">get<wbr>Status<wbr>Code</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="invalideventtypeerror.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,54 +99,27 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Errors<wbr>Manager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="errorsmanager.html" class="tsd-signature-type">ErrorsManager</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Invalid<wbr>Event<wbr>Type<wbr>Error<span class="tsd-signature-symbol">(</span>invalidEventType<span class="tsd-signature-symbol">: </span><a href="../enums/eventtypeenum.html" class="tsd-signature-type">EventTypeEnum</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="invalideventtypeerror.html" class="tsd-signature-type">InvalidEventTypeError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Laderlappen-2/Backend/blob/bcbb581/api/src/business-logic-layer/errors.manager.ts#L15">src/business-logic-layer/errors.manager.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/Laderlappen-2/Backend/blob/65600d9/api/src/data-layer/errors/invalidEventType.error.ts#L7">src/data-layer/errors/invalidEventType.error.ts:7</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="errorsmanager.html" class="tsd-signature-type">ErrorsManager</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getstatuscode" class="tsd-anchor"></a>
-					<h3>get<wbr>Status<wbr>Code</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Status<wbr>Code<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><a href="baseerror.html" class="tsd-signature-type">BaseError</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/Laderlappen-2/Backend/blob/bcbb581/api/src/business-logic-layer/errors.manager.ts#L22">src/business-logic-layer/errors.manager.ts:22</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the status code for the specified error instance</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>error: <a href="baseerror.html" class="tsd-signature-type">BaseError</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The error instance</p>
-									</div>
+									<h5>invalidEventType: <a href="../enums/eventtypeenum.html" class="tsd-signature-type">EventTypeEnum</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="invalideventtypeerror.html" class="tsd-signature-type">InvalidEventTypeError</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -184,21 +156,9 @@
 					<li class=" tsd-kind-class">
 						<a href="drivingsessionsroute.html" class="tsd-kind-icon">Driving<wbr>Sessions<wbr>Route</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="errorsmanager.html" class="tsd-kind-icon">Errors<wbr>Manager</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="errorsmanager.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="errorsmanager.html#getstatuscode" class="tsd-kind-icon">get<wbr>Status<wbr>Code</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="event.html" class="tsd-kind-icon">Event</a>
 					</li>
@@ -211,9 +171,18 @@
 					<li class=" tsd-kind-class">
 						<a href="eventsroute.html" class="tsd-kind-icon">Events<wbr>Route</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="invalideventtypeerror.html" class="tsd-kind-icon">Invalid<wbr>Event<wbr>Type<wbr>Error</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="invalideventtypeerror.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="notfounderror.html" class="tsd-kind-icon">Not<wbr>Found<wbr>Error</a>
 					</li>
