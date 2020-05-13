@@ -1,6 +1,15 @@
 version: "3.7"
 
 services:
+    sut:
+        build: 
+            context: "api"
+            dockerfile: Dockerfile.test
+
+        environment:
+            DATABASE_URL: postgres://root:test@postgres:5432/backend
+        links:
+        - api
     # Postgres
     postgres:
         image: postgres
@@ -16,7 +25,7 @@ services:
     api:
         build: 
             context: "api"
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.test
 
         environment:
             DATABASE_URL: postgres://root:test@postgres:5432/backend
@@ -36,6 +45,3 @@ services:
 
         ports:
             - "8080:8080"
-            - "9229:9229"
-
-        command: "npm run dev"

@@ -8,5 +8,7 @@ COPY src ./src
 ADD package.json ./
 ADD tsconfig.json ./
 
-ENV NODE_ENV=development
+ENV NODE_ENV=test
 RUN npm install
+
+CMD npm run test

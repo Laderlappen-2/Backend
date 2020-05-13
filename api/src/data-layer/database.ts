@@ -1,8 +1,10 @@
 import { Sequelize } from "sequelize-typescript"
 
-export const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'backend-db.sqlite',
+/**
+ * The database instance for the whole application
+ */
+export const sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
     models: [__dirname + "/models/*.model.ts"],
     modelMatch: (filename, member) => {
         // filename = filnamn :^)

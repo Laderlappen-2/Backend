@@ -23,7 +23,6 @@ docs/_static
 docs/_templates
 .gopath/
 .dotcloud
-*.test
 bundles/
 .hg/
 .git/

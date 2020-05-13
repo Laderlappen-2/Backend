@@ -4,6 +4,9 @@ import { DrivingSession } from "./drivingSession.model"
 import { CollisionAvoidanceEvent } from "./collisionAvoidanceEvent.model"
 import { PositionEvent } from "./positionEvent.model"
 
+/**
+ * Base class of an event containing what driving session, what type of event and when it occurred.
+ */
 @Table({ tableName: "events", timestamps: false })
 export class Event extends Model<Event> {
 

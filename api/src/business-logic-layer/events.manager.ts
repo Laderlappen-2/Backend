@@ -1,18 +1,26 @@
 import { PositionEvent, Event, EventTypeEnum, CollisionAvoidanceEvent, EventType } from "../data-layer/models" 
-import { FindOptions, Op } from "sequelize"
-import { PaginationQuery, PaginationResult, DrivingSessionsManager } from "./drivingSessions.manager"
+import { DrivingSessionsManager } from "./drivingSessions.manager"
 import { InvalidEventTypeError } from "../data-layer/errors/invalidEventType.error"
 import { BaseManager } from "./base.manager"
 
+/**
+ * Business logic layer for events
+ */
 export class EventsManager extends BaseManager<Event> {
 
+    /** @internal */
     private drivingSessionsManager: DrivingSessionsManager
 
+    /** @internal */
     constructor({ drivingSessionsManager }) {
         super({ drivingSessionsManager }, Event)
         this.drivingSessionsManager = drivingSessionsManager
     }
 
+    /**
+     * Create a new event associated with a specific driving session
+     * @param options
+     */
     async create(options: CreateEventOptions): Promise<Event> {
         if(Object.keys(EventTypeEnum).indexOf(options.eventTypeId.toString()) == -1) {
             throw new InvalidEventTypeError(options.eventTypeId)
@@ -57,6 +65,10 @@ export class EventsManager extends BaseManager<Event> {
         })
     }
 
+    /**
+     * Create multiple events associated with one driving session
+     * @param events
+     */
     async createBatch(events: CreateEventBatchOptions): Promise<EventBatchResult> {
         // TODO: Validate options
 
@@ -111,6 +123,10 @@ export class EventsManager extends BaseManager<Event> {
         }
     }
 
+    /**
+     * Returns all event types
+     * @returns An array of all event types
+     */
     async getEventTypes() {
         return await EventType.findAll()
     }

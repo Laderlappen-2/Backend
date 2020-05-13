@@ -1,6 +1,9 @@
-import { Table, Column, Model, AutoIncrement, PrimaryKey, ForeignKey, BelongsTo, DataType } from "sequelize-typescript"
+import { Table, Column, Model, ForeignKey, BelongsTo, DataType } from "sequelize-typescript"
 import { Event } from "./event.model"
 
+/**
+ * An event that is created when the mower changes it's travel path
+ */
 @Table({ tableName: "positionEvents", timestamps: false })
 export class PositionEvent extends Model<PositionEvent> {
 
