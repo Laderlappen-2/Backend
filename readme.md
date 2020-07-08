@@ -7,4 +7,4 @@ REST-API for project Läderappen
 
 # Documentation
 - [API Overview](https://laderlappen-2.github.io/Backend/)
-- [REST-API Documentation](https://documenter.getpostman.com/view/4362009/SzYdRbFX?version=latest#f04ffd68-7057-474c-b3cf-dd338f42e55a)
+- [REST-API Documentation](https://documenter.getpostman.com/view/4362009/SzYdRbFX)
